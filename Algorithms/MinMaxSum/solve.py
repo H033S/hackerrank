@@ -1,11 +1,20 @@
-if __name__ == "__main__":
-    arr = [1,2,3,4,5]
-    arr.sort()
-    x = len(arr)-1
-    sum1,sum2= 0,0
+import math
+import os
+import random
+import re
+import sys
 
-    for i in range(len(arr)-1):
-        sum1 += arr[i]
-        sum2 += arr[x-i]
-    
-    print('{} {}'.format(sum1,sum2))
+# Complete the miniMaxSum function below.
+def miniMaxSum(arr):
+    arr.sort()
+
+    _min = sum(arr[:-1])
+    _max = sum(arr[1:])
+
+    print('{} {}'.format(_min,_max))
+
+
+if __name__ == '__main__':
+    arr = list(map(int, input().rstrip().split()))
+
+    miniMaxSum(arr)
