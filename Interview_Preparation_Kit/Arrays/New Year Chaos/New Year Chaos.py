@@ -10,21 +10,20 @@ import sys
 def minimumBribes(q):
     ans = 0
     Q = [P - 1 for P in q]
+    greaters = [0 for x in q]
+    bribes = 0
 
+    for i in range(len(Q)):
 
-    for i in range(len(Q)-1, 0,-1):
-        P = Q[i]
-        
-        if abs(P - i) > 2:
-            print('Too chaotic')
-            return
-        
-        for j in range(max(P-1, 0), i):
-            if Q[j] > P:
-                ans += 1
-    
-    print(ans)
-        
+        for j in range(i + 1 ,len(Q)):
+            if Q[i] > Q[j]:
+                if greaters[i] == 2:
+                    print('Too Chaotic')
+                    return
+                    
+                greaters[i] += 1
+                bribes += 1
+    print(bribes)
 
 
 if __name__ == '__main__':
