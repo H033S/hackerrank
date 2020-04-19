@@ -44,7 +44,7 @@ def arrayManipulation(n, queries):
     return s[1]
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    #fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
     nm = input().split()
 
@@ -57,9 +57,13 @@ if __name__ == '__main__':
     lazy = [0]*(4*n)
 
     for _ in range(m):
+
         inp = list(map(int, input().rstrip().split()))
         update(inp[0], inp[1], inp[2], 1, 1, n)
 
-    fptr.write(str(s[1]) + '\n')
-
-    fptr.close()
+        print(s)
+        print(lazy
+        )
+    #fptr.write(str(s[1]) + '\n')
+    print(s[1])
+    #fptr.close()
