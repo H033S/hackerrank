@@ -1,3 +1,12 @@
+#Este es el que subi en hackerrank
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
 global s
 global lazy
 
@@ -12,7 +21,7 @@ def shift(id, l, r):
     mid = (l + r) >> 1
 
     update(id<<1, l, mid, lazy[id])
-    update(id<<1|1, mid + 1, r, lazy[id])
+    update(id<<1|1, mid+1, r, lazy[id])
     lazy[id] = 0
 
 def increase(x, y, v, id, l, r):
@@ -29,16 +38,15 @@ def increase(x, y, v, id, l, r):
     increase(x, y, v, id<<1|1, mid + 1, r)
     s[id] = max(s[id << 1], s[id << 1|1])
 
-
+# Complete the arrayManipulation function below.
 def arrayManipulation(n, queries):    
     for q in queries:
         increase(q[0], q[1], q[2], 1, 0, n)    
 
     return s[1]
-    #return query(1, n, 0, 0, n)  
 
 if __name__ == '__main__':
-    #fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
     nm = input().split()
 
@@ -54,8 +62,7 @@ if __name__ == '__main__':
         queries.append(list(map(int, input().rstrip().split())))
 
     result = arrayManipulation(n, queries)
-    print(result)
 
-    #fptr.write(str(result) + '\n')
+    fptr.write(str(result) + '\n')
 
-    #fptr.close()
+    fptr.close()

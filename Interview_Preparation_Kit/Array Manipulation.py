@@ -14,8 +14,8 @@ def update(s, lazy, id, l, r, x):
 def shift(s, lazy, id, l, r):
     mid = (l + r) >> 1
 
-    update(s, lazy, id<<1, l, r, lazy[id])
-    update(s, lazy, id<<1|1, l, r, lazy[id])
+    update(s, lazy, id<<1, l, mid, lazy[id])
+    update(s, lazy, id<<1|1, mid + 1, r, lazy[id])
     lazy[id] = 0
 
 ##Increase count x to the interval x,y 
