@@ -10,38 +10,36 @@ import sys
 global s
 global lazy
 
-def update(id, l, r, x):
-    if not (r - l):
-        s[id] += x
-    else:
-        lazy[id] += x
-        s[id] += x
-
 def shift(id, l, r):
     mid = (l + r) >> 1
 
-    update(id<<1, l, mid, lazy[id])
-    update(id<<1|1, mid+1, r, lazy[id])
+    lazy[id<<1] += lazy[id]
+    lazy[id<<1|1] += lazy[id]
+
+    s[id<<1] += lazy[id]
+    s[id<<1|1] += lazy[id]
+    
     lazy[id] = 0
 
-def increase(x, y, v, id, l, r):
+def update(x, y, v, id, l, r):
     if x > r or l > y:
         return
     if x <= l <= r <= y:
-        update(id, l, r, v)
+        s[id] += v
+        lazy[id] += v
         return
     
     shift(id, l, r)
 
     mid = (l + r) >> 1
-    increase(x, y, v, id<<1, l, mid)
-    increase(x, y, v, id<<1|1, mid + 1, r)
+    update(x, y, v, id<<1, l, mid)
+    update(x, y, v, id<<1|1, mid + 1, r)
     s[id] = max(s[id << 1], s[id << 1|1])
 
 # Complete the arrayManipulation function below.
 def arrayManipulation(n, queries):    
     for q in queries:
-        increase(q[0], q[1], q[2], 1, 0, n)    
+        increase(q[0], q[1], q[2], 1, 1, n)    
 
     return s[1]
 
@@ -59,10 +57,9 @@ if __name__ == '__main__':
     lazy = [0]*(4*n)
 
     for _ in range(m):
-        queries.append(list(map(int, input().rstrip().split())))
+        inp = list(map(int, input().rstrip().split()))
+        update(inp[0], inp[1], inp[2], 1, 1, n)
 
-    result = arrayManipulation(n, queries)
-
-    fptr.write(str(result) + '\n')
+    fptr.write(str(s[1]) + '\n')
 
     fptr.close()
